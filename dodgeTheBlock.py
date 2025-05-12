@@ -1,5 +1,6 @@
 import pygame
 import random
+from OpenGL.GLUT import GLUT_BITMAP_HELVETICA_18
 from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLUT import *
@@ -51,13 +52,15 @@ def move_obstacles():
             lives -= 1
             if lives <= 0:
                 game_over = True
-            continue  # Don't keep this obstacle
+            continue  # Skip adding this obstacle
 
-        if obs[1] > -1:
-            new_obstacles.append(obs)
+        if obs[1] < -1:  # Off-screen, and no collision
+            score += 1   # ✅ Increment score here
+        else:
+            new_obstacles.append(obs)  # Still visible, keep it
 
     obstacles[:] = new_obstacles
-    score += 1
+
 
 
 def reset_game():
