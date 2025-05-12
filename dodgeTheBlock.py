@@ -6,11 +6,11 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 
 # Game constants
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 850
 SCREEN_HEIGHT = 600
-PLAYER_SIZE = 0.05
-OBSTACLE_SIZE = 0.05
-INITIAL_FALL_SPEED = 0.04
+PLAYER_SIZE = 0.03
+OBSTACLE_SIZE = 0.06
+INITIAL_FALL_SPEED = 0.07
 
 # Game variables
 player_x = 0
@@ -52,12 +52,12 @@ def move_obstacles():
             lives -= 1
             if lives <= 0:
                 game_over = True
-            continue  # Skip adding this obstacle
+            continue 
 
-        if obs[1] < -1:  # Off-screen, and no collision
-            score += 1   # ✅ Increment score here
+        if obs[1] < -1:  
+            score += 1  
         else:
-            new_obstacles.append(obs)  # Still visible, keep it
+            new_obstacles.append(obs) 
 
     obstacles[:] = new_obstacles
 
@@ -97,7 +97,7 @@ def show_game_over_screen():
             elif event.type == KEYDOWN:
                 if event.key == K_r:
                     reset_game()
-                    game_loop()  # ✅ Restart game loop after reset
+                    game_loop() 
                     return
                 elif event.key == K_q:
                     pygame.quit()
@@ -157,7 +157,7 @@ def game_loop():
             spawn_obstacle()
 
         if difficulty_timer % 600 == 0:
-            fall_speed += 0.005  # Increase difficulty
+            fall_speed += 0.005  
 
         move_obstacles()
 
